@@ -518,7 +518,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   inputRow: {
-    marginBottom: 12,
+    marginBottom: 30,
   },
   timeRow: {
     flexDirection: 'row',
