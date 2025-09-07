@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, Modal, Animated, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,10 +20,12 @@ export default function CelebrationModal({ visible, onClose, message, achievemen
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(50)).current;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (visible) {
-      // Celebration animation sequence
-      Animated.sequence([
+      // Small delay to prevent useInsertionEffect warning
+      const timer = setTimeout(() => {
+        // Celebration animation sequence
+        Animated.sequence([
         // Initial pop-in
         Animated.parallel([
           Animated.spring(scaleAnim, {
@@ -86,7 +88,10 @@ export default function CelebrationModal({ visible, onClose, message, achievemen
         fadeAnim.setValue(0);
         rotateAnim.setValue(0);
         slideAnim.setValue(50);
-      });
+        });
+      }, 100); // 100ms delay to prevent useInsertionEffect warning
+      
+      return () => clearTimeout(timer);
     }
   }, [visible]);
 

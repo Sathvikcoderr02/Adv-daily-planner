@@ -67,7 +67,7 @@ function AppContent() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <StatusBar style="light" backgroundColor="#667eea" />
+        <StatusBar style="light" />
         <Stack.Navigator 
           screenOptions={{ 
             headerShown: false,
